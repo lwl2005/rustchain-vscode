@@ -1,0 +1,104 @@
+{
+  "name": "rustchain-wallet",
+  "displayName": "RustChain Wallet & Miner Dashboard",
+  "description": "View your RustChain wallet balance, miner status, and bounty board in VS Code",
+  "version": "1.0.0",
+  "publisher": "lwl2005",
+  "author": {
+    "name": "lwl2005",
+    "email": "lwl2005@foxmail.com"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lwl2005/rustchain-vscode"
+  },
+  "engines": {
+    "vscode": "^1.74.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "keywords": [
+    "rustchain",
+    "wallet",
+    "cryptocurrency",
+    "miner",
+    "blockchain",
+    "rtc"
+  ],
+  "activationEvents": [
+    "onView:rustchain.wallet",
+    "onView:rustchain.miners",
+    "onView:rustchain.bounties"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "rustchain",
+          "title": "RustChain",
+          "icon": "media/rustchain.svg"
+        }
+      ]
+    },
+    "views": {
+      "rustchain": [
+        {
+          "id": "rustchain.wallet",
+          "name": "Wallet"
+        },
+        {
+          "id": "rustchain.miners",
+          "name": "Miners"
+        },
+        {
+          "id": "rustchain.bounties",
+          "name": "Bounties"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "rustchain.refresh",
+        "title": "RustChain: Refresh",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "rustchain.claimBounty",
+        "title": "RustChain: Claim Bounty",
+        "icon": "$(gift)"
+      }
+    ],
+    "configuration": {
+      "title": "RustChain",
+      "properties": {
+        "rustchain.walletName": {
+          "type": "string",
+          "default": "",
+          "description": "Your RustChain wallet name or address"
+        },
+        "rustchain.nodeUrl": {
+          "type": "string",
+          "default": "https://50.28.86.131",
+          "description": "RustChain node URL"
+        },
+        "rustchain.refreshInterval": {
+          "type": "number",
+          "default": 30,
+          "description": "Auto-refresh interval in seconds"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "build": "esbuild src/extension.ts --bundle --outfile=dist/extension.js --external:vscode --format=cjs --platform=node --minify",
+    "watch": "esbuild src/extension.ts --bundle --outfile=dist/extension.js --external:vscode --format=cjs --platform=node --watch"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.74.0",
+    "esbuild": "^0.19.0"
+  },
+  "dependencies": {}
+}
